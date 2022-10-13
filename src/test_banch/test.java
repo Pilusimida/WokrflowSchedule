@@ -1,3 +1,5 @@
+package test_banch;
+
 import java.util.Arrays;
 import java.util.Scanner;
 public class test {

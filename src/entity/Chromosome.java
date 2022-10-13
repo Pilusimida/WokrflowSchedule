@@ -1,5 +1,7 @@
+package entity;
+
 /**
- * This class is Chromosome in EMO, which has 3 Strings:\n
+ * This class is entity.Chromosome in EMO, which has 3 Strings:\n
  * 1. Order: a vector containing a permutation of all task indexes.
  * 2. Ind:
  * 3. Type:

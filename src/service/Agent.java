@@ -1,3 +1,7 @@
+package service;
+
+import entity.Task;
+
 import java.util.Arrays;
 import java.util.Random;
 
