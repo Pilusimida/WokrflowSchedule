@@ -2,13 +2,31 @@ package service;
 
 import entity.Chromosome;
 import entity.Task;
+import entity.TaskGraph;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Agent {
     public static Random random = new Random();
     public static Task[] tasks;
+
+    public static int[] getTopologicalTaskArr(){
+        Scanner input=new Scanner(System.in);
+        System.out.println("--------------------Topological Sorting--------------------");
+        System.out.println("Please input the task quantity:");
+        TaskGraph graph=new TaskGraph(input.nextInt());
+        System.out.println("Please input the task priority (x to finish the input):");
+        while (true) {
+            String str1=input.next();
+            if(str1.equals("x")) break;
+            String str2=input.next();
+            input.nextLine();
+            graph.addEdge(Integer.parseInt(str1),Integer.parseInt(str2));
+        }
+        return graph.TopologicalSorting();
+    }
 
     public static void crossoverOrder(Chromosome A, Chromosome B) {
         //n is the number of tasks
