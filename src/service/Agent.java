@@ -1,5 +1,6 @@
 package service;
 
+import entity.Chromosome;
 import entity.Task;
 
 import java.util.Arrays;
@@ -75,14 +76,14 @@ public class Agent {
         X.order[posN] = temp;
     }
     // im not sure if the [mutate rate] of genes is correct or not
-    public static void mutateIns(Chromosome X) {
+    public static void mutateIns(Chromosome X,int m) {
         int number = X.task2ins.length;
         int p = random.nextInt(number);//generate the position where mutate occurs
         int instance = random.nextInt(m);//m is the number of instances available
         X.task2ins[p] = instance;
     }
 
-    public static void mutateType(Chromosome X) {
+    public static void mutateType(Chromosome X, int m) {
         int number = X.ins2type.length;
         int p = random.nextInt(number);//generate the position where mutate occurs
         int instance = random.nextInt(m);//m is the number of instances available
