@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class Agent {
     public static Random random = new Random();
     public static Task[] tasks;
-
     public static int[] getTopologicalTaskArr(){
         Scanner input=new Scanner(System.in);
         System.out.println("--------------------Topological Sorting--------------------");
@@ -23,6 +22,7 @@ public class Agent {
             if(str1.equals("x")) break;
             String str2=input.next();
             input.nextLine();
+            System.out.println("Edge from " + str1 + " to " + str2 + " has been built.");
             graph.addEdge(Integer.parseInt(str1),Integer.parseInt(str2));
         }
         return graph.TopologicalSorting();
