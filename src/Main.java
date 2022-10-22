@@ -25,6 +25,8 @@ public class Main {
         }
         Agent.tasks = tasks;
         TaskGraph graph=new TaskGraph(task_number,tasks);
+        graph.addEdge(1,3);
+        graph.addEdge(2,3);
         int[] topologicalArr = graph.TopologicalSorting();
         int[] instance = new int[task_number];
         int[] instance2 = new int[task_number];
@@ -61,12 +63,14 @@ public class Main {
     public static void print(Chromosome chromosome){
         System.out.println("-----------------------------");
         System.out.println("Order: ");
-        System.out.println(chromosome.order.toString());
+        Arrays.stream(chromosome.order).forEach(x->System.out.print(x+" "));
+        System.out.println();
         System.out.println("task2ins: ");
-        System.out.println(chromosome.ins2type.toString());
+        Arrays.stream(chromosome.task2ins).forEach(x->System.out.print(x+" "));
+        System.out.println();
         System.out.println("ins2type: ");
-        System.out.println(chromosome.ins2type.toString());
+        Arrays.stream(chromosome.ins2type).forEach(x->System.out.print(x+" "));
+        System.out.println();
         System.out.println("-----------------------------");
-
     }
 }
