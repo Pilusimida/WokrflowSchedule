@@ -21,7 +21,7 @@ public class PopulationManager {
 
     public static void initialPopulation(){
         int[] taskOrder = Agent.getTopologicalTaskArrByFile("");
-        int[] instance = Agent.getRandomInstance();
+        int[] instance = Agent.getRandomIns();
         int[] type = Agent.getRandomType();
         Random random=new Random();
         Chromosome chromosome=new Chromosome();
@@ -30,17 +30,15 @@ public class PopulationManager {
         chromosome.order = taskOrder;
         bank.add(chromosome);
         for(int i=0;i<quantity-1;++i){
-            taskOrder = Agent.mutateOrder();
-            instance = Agent.getRandomInstance();
+            chromosome = Agent.mutateOrder(chromosome,random.nextInt());
+            instance = Agent.getRandomIns();
             type = Agent.getRandomType();
             chromosome.task2ins = instance;
-            chromosome.order = taskOrder;
             chromosome.ins2type = type;
             bank.add(chromosome);
         }
-
-
     }
+
 
 
 
