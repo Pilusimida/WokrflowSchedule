@@ -40,7 +40,7 @@ public class Main {
 
         Chromosome chromosome = new Chromosome(topologicalArr, instance, type);
         Chromosome chromosome1 = new Chromosome(topologicalArr, instance2, type2);
-        for (int i = 0; i < chromosome1.order.length; i++) {
+        for (int i = 0; i < task_number; i++) {
             Agent.mutateOrder(chromosome1, i);
         }
         print(chromosome);
