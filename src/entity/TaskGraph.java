@@ -6,17 +6,19 @@ import java.util.*;
  * @Description: A class to construct input tasks' DAG, which can also do Topological sorting
  */
 public class TaskGraph {
+    private Task[] tasks;
     private int size;
     Vertex start;
     Vertex end = new Vertex(Integer.MAX_VALUE);
     Vertex[] vertices;
 
-    public TaskGraph(int n) {
+    public TaskGraph(int n, Task[] tasks) {
         vertices = new Vertex[n + 1];
         for (int i = 0; i < n + 1; ++i) {
             vertices[i] = new Vertex(i);
         }
         start = vertices[0];
+        this.tasks = tasks;
         size = n;
     }
 
@@ -25,6 +27,9 @@ public class TaskGraph {
         vertices[ver1].next.add(vertices[ver2]);
         vertices[ver2].inner++;
         vertices[ver1].outer++;
+
+        tasks[ver1].successor.add(tasks[ver2]);
+        tasks[ver2].predecessor.add(tasks[ver1]);
     }
 
     public int[] TopologicalSorting() {
