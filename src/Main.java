@@ -11,8 +11,8 @@ import java.util.Scanner;
 
 
 public class Main {
+    public static Type[] types = new Type[8];
     public static void main(String[] args) {
-        Type[] types = new Type[8];
         types[0] = new Type(0, 1.7f, 39321600, 0.06f);
         types[1] = new Type(1, 3.75f, 85196800, 0.12f);
         types[2] = new Type(2, 3.75f, 85196800, 0.113f);
