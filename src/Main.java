@@ -49,8 +49,8 @@ public class Main {
         TaskGraph graph=new TaskGraph(task_number,tasks);
         graph.addEdge(1,3);
         graph.addEdge(2,3);
-
         int[] topologicalArr = graph.TopologicalSorting();
+
         int[] instance = new int[task_number];
         int[] instance2 = new int[task_number];
         int[] type = new int[task_number];
