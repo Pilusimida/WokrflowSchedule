@@ -150,6 +150,22 @@ public class Agent {
         return nc;
     }
 
+    public static int[] getRandomIns(){
+        int[] instance = new int[insNumber];
+        for (int i = 0; i < insNumber; i++) {
+            instance[i] = random.nextInt(insNumber);
+        }
+        return instance;
+    }
+
+    public static int[] getRandomType(){
+        int[] type = new int[typeNumber];
+        for (int i = 0; i < typeNumber; i++) {
+            type[i] = random.nextInt(typeNumber);
+        }
+        return type;
+    }
+
     // im not sure if the [mutate rate] of genes is correct or not
     public static void mutateIns(Chromosome X) {
         int number = X.task2ins.length;

@@ -30,6 +30,13 @@ public class PopulationManager {
         chromosome.order = taskOrder;
         bank.add(chromosome);
         for(int i=0;i<quantity-1;++i){
+            taskOrder = Agent.mutateOrder();
+            instance = Agent.getRandomInstance();
+            type = Agent.getRandomType();
+            chromosome.task2ins = instance;
+            chromosome.order = taskOrder;
+            chromosome.ins2type = type;
+            bank.add(chromosome);
         }
 
 
