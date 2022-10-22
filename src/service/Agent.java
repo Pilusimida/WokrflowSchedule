@@ -135,4 +135,8 @@ public class Agent {
         }
     }
 
+    public static float makespan(){
+
+    }
+
 }
