@@ -3,18 +3,23 @@ package service;
 import entity.Chromosome;
 import entity.Task;
 import entity.TaskGraph;
+import entity.Type;
+import javafx.scene.effect.Blend;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import utils.MakeSpanUtils;
 
 public class Agent {
     public static int insNumber;
     public static int typeNumber;
     public static Random random = new Random();
     public static Task[] tasks;
+    public static Type[] Types;
+    public static double[] availableTime;
     public static int[] getTopologicalTaskArrByConsole(){
         Scanner input=new Scanner(System.in);
         System.out.println("--------------------Topological Sorting--------------------");
@@ -167,7 +172,30 @@ public class Agent {
         }
     }
 
-    public static float makespan(){
+    public static double makespan(Chromosome chromosome){
+        Type[] types = new Type[tasks.length];
+        for (int i = 0; i < types.length; i++) {
+            types[i] = Types[chromosome.ins2type[chromosome.task2ins[i]]];
+        }
+        MakeSpanUtils.types = types;
+        double exitTime = 0;
+        for(Task task:tasks){
+            int insIndex = chromosome.task2ins[task.index];
+            int typeIndex = chromosome.ins2type[chromosome.task2ins[task.index]];
+            if(task.predecessor.size() == 0){
+                task.startTime = Math.max(0, availableTime[insIndex]);
+                task.finalTime = task.startTime + MakeSpanUtils.getCompTime(task.referTime, types[typeIndex].cu);
+                availableTime[insIndex] = task.finalTime;
+            }else{
+                task.startTime = MakeSpanUtils.getStartTime(availableTime[insIndex], task, task.datasize, types[typeIndex].bw);
+                task.finalTime = task.startTime + MakeSpanUtils.getCompTime(task.referTime, types[typeIndex].cu);
+                availableTime[insIndex] = task.finalTime;
+            }
+            if(task.successor.size() == 0){
+                exitTime = Math.max(exitTime, task.finalTime);
+            }
+        }
+        return exitTime;
 
     }
 

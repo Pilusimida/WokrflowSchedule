@@ -32,8 +32,16 @@ public class Main {
         Task[] tasks = new Task[task_number];
         for (int i = 0; i < task_number; i++) {
             tasks[i] = new Task(i);
+            tasks[i].datasize = 3.43;
+            tasks[i].referTime = 8.44;
         }
         Agent.tasks = tasks;
+        Agent.Types = types;
+        double[] avaibleTime = new double[instance_number];
+        for (int i = 0; i < instance_number; i++) {
+            avaibleTime[i] = 0;
+        }
+        Agent.availableTime = avaibleTime;
         TaskGraph graph=new TaskGraph(task_number,tasks);
         graph.addEdge(1,3);
         graph.addEdge(2,3);
@@ -58,17 +66,16 @@ public class Main {
             Agent.mutateOrder(chromosome1, i);
         }
         print(chromosome);
+        System.out.println(Agent.makespan(chromosome));
         print(chromosome1);
+        System.out.println(Agent.makespan(chromosome1));
         System.out.println("After crossover:");
         Agent.crossoverOrder(chromosome,chromosome1);
         print(chromosome);
+        System.out.println(Agent.makespan(chromosome));
         print(chromosome1);
+        System.out.println(Agent.makespan(chromosome1));
 
-
-
-
-
-        Agent.tasks = tasks;
 
     }
     public static void print(Chromosome chromosome){
