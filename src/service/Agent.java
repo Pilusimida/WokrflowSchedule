@@ -5,6 +5,7 @@ import entity.Task;
 import entity.TaskGraph;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -42,23 +43,26 @@ public class Agent {
         int[] orderB = new int[n];
         //
         for (int i = 0; i <= p; i++) {
-            orderA[i] = A.order[i];
-            orderB[i] = B.order[i];
+            orderA[i] = B.order[i];
+            orderB[i] = A.order[i];
         }
         //这里我产生了一个问题，会不会在Chromosome里面把int[]改成List会更好
-        for (int i : A.order) {
-            if (!Arrays.asList(orderA).contains(i)) {
-                cursorA++;
-                orderA[cursorA] = i;
-            }
-        }
-        for (int i : B.order) {
-            if (!Arrays.asList(orderB).contains(i)) {
-                cursorB++;
-                orderB[cursorB] = i;
-            }
+        for(int num:A.order){
+            if(!isContains(orderA,0,p,num)) orderA[cursorA++]=num;
         }
 
+        for(int num:B.order){
+            if(!isContains(orderB,0,p,num)) orderB[cursorB++]=num;
+        }
+        A.order = orderA;
+        B.order = orderB;
+    }
+
+    public static boolean isContains(int[] arr,int start,int end,int num){
+        for(int i=start;i<=end;++i){
+            if(arr[i]==num) return true;
+        }
+        return false;
     }
 
     public static void crossoverIns(Chromosome A, Chromosome B) {
