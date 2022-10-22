@@ -9,13 +9,15 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Agent {
+    public static int insNumber;
+    public static int typeNumber;
     public static Random random = new Random();
     public static Task[] tasks;
     public static int[] getTopologicalTaskArr(){
         Scanner input=new Scanner(System.in);
         System.out.println("--------------------Topological Sorting--------------------");
         System.out.println("Please input the task quantity:");
-        TaskGraph graph=new TaskGraph(input.nextInt());
+        TaskGraph graph=new TaskGraph(input.nextInt(), tasks);
         System.out.println("Please input the task priority (x to finish the input):");
         while (true) {
             String str1=input.next();
@@ -94,10 +96,10 @@ public class Agent {
         X.order[posN] = temp;
     }
     // im not sure if the [mutate rate] of genes is correct or not
-    public static void mutateIns(Chromosome X,int m) {
+    public static void mutateIns(Chromosome X) {
         int number = X.task2ins.length;
         int p = random.nextInt(number);//generate the position where mutate occurs
-        int instance = random.nextInt(m);//m is the number of instances available
+        int instance = random.nextInt(insNumber);//m is the number of instances available
         X.task2ins[p] = instance;
     }
 
@@ -123,6 +125,10 @@ public class Agent {
         }
         B.ins2type[Instance] = TypeA;
         //mutate Pa with a small probability
+        int r = random.nextInt(1000);
+        if(r == 1){
+            TypeA = random.nextInt(typeNumber);
+        }
     }
 
 }
