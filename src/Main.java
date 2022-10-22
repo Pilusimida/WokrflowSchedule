@@ -8,6 +8,7 @@ import service.PopulationManager;
 import java.util.*;
 
 import static service.Agent.availableTime;
+import static service.Agent.insNumber;
 
 
 public class Main {
@@ -31,7 +32,8 @@ public class Main {
         System.out.println("Please input the instances number: ");
         instance_number = input.nextInt();
 
-        int type_number = 8;
+        Agent.insNumber=instance_number;
+        Agent.typeNumber= 8;
         tasks = new Task[task_number];
         for (int i = 0; i < task_number; i++) {
             tasks[i] = new Task(i);

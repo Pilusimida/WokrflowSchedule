@@ -23,6 +23,9 @@ public class PopulationManager {
 
     public static void initialPopulation(int[] task){
         int[] instance = Agent.getRandomIns();
+        if(instance.length==0){
+            System.out.println();
+        }
         int[] type = Agent.getRandomType();
         Random random=new Random();
         Chromosome chromosome=new Chromosome();
@@ -47,7 +50,7 @@ public class PopulationManager {
         });
     }
     public static void reproduce(){
-        List<Chromosome> newBank=new LinkedList<>(bank);
+        List<Chromosome> newBank=cloneList(bank);
         for(int i=0;i<newBank.size();++i){
             for(int j=i+1;j<newBank.size();++j){
                 Agent.crossoverOrder(newBank.get(i),newBank.get(j));
@@ -64,8 +67,9 @@ public class PopulationManager {
     public static List<Chromosome> cloneList(List<Chromosome> list){
         List<Chromosome> ans=new ArrayList<>();
         for(Chromosome chromosome:list){
-            ans.add()
+            ans.add(chromosome.cloneObject());
         }
+        return ans;
     }
 
     public static void sort(){
@@ -83,7 +87,7 @@ public class PopulationManager {
                 }
             }
         }
-        List<Chromosome> newBank=new LinkedList<>(bank);
+        List<Chromosome> newBank=cloneList(bank);
         int r = 0;
         while (!newBank.isEmpty()) {
             rank.add(new LinkedList<>());
@@ -104,7 +108,7 @@ public class PopulationManager {
 
     public static void eliminate(){
         List<Chromosome> newList = new ArrayList<>();
-        int num=0;
+        int num;
         for(List<Chromosome> list:rank){
             if(list.size()+newList.size()<=quantity){
                 newList.addAll(list);

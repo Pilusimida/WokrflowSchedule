@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,15 +31,28 @@ public class Chromosome implements MyCloneable{
     }
 
     @Override
+    public boolean equals(Object o){
+        Chromosome chromosome1=(Chromosome) o;
+        for(int i=0;i<order.length;++i){
+            if(!(order[i]==chromosome1.order[i]
+            && ins2type[i]==chromosome1.ins2type[i]
+            && task2ins[i]==chromosome1.task2ins[i]))
+                return false;
+        }
+        return true;
+    }
+
+
+    @Override
     public Chromosome cloneObject() {
         Chromosome newc = new Chromosome();
         int[] norder=order.clone();
         int[] ntask2ins = task2ins.clone();
         int[] nins2type = ins2type.clone();
-        List<Chromosome> better = better.;
-        List<Chromosome> worse = ;
-        double nmakwspan = makespan;
-        double ncost = cost;
+        newc.order=norder;
+        newc.task2ins=ntask2ins;
+        newc.ins2type=nins2type;
 
+        return newc;
     }
 }
