@@ -41,8 +41,8 @@ public class Main {
             type2[i] = random.nextInt(type_number);
         }
 
-        Chromosome chromosome = new Chromosome(topologicalArr, instance, type);
-        Chromosome chromosome1 = new Chromosome(topologicalArr, instance2, type2);
+        Chromosome chromosome = new Chromosome(topologicalArr.clone(), instance, type);
+        Chromosome chromosome1 = new Chromosome(topologicalArr.clone(), instance2, type2);
         for (int i = 0; i < task_number; i++) {
             Agent.mutateOrder(chromosome1, i);
         }
