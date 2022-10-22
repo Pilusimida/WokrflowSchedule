@@ -9,11 +9,12 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
+import static service.Agent.availableTime;
+
 
 public class Main {
     public static Type[] types = new Type[8];
     public static Task[] tasks;
-    public static double[] availableTime;
     public static int instance_number;
     public static int task_number;
     public static void main(String[] args) {
@@ -41,11 +42,10 @@ public class Main {
         }
         Agent.tasks = tasks;
         Agent.Types = types;
-        availableTime = new double[instance_number];
+        availableTime=new double[instance_number];
         for (int i = 0; i < instance_number; i++) {
             availableTime[i] = 0;
         }
-        Agent.availableTime = availableTime;
         TaskGraph graph=new TaskGraph(task_number,tasks);
         graph.addEdge(1,3);
         graph.addEdge(2,3);
