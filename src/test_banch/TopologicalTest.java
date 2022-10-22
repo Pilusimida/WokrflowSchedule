@@ -6,9 +6,7 @@ import java.util.Random;
 
 public class TopologicalTest {
     public static void main(String[] args) {
-//        int[] arr=Agent.getTopologicalTaskArr();
-//        Arrays.stream(arr).forEach(System.out::println);
-        System.out.println(new Random().nextInt(1000));
-
+        int[] arr=Agent.getTopologicalTaskArr();
+        Arrays.stream(arr).forEach(System.out::println);
     }
 }

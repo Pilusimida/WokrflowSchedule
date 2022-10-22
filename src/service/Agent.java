@@ -84,10 +84,10 @@ public class Agent {
         Task task = tasks[X.order[pos]];
         int start = pos;
         int end = pos;
-        while (start >= 0 && !tasks[pos].predecessor.contains(tasks[X.order[start]])) {
+        while (start >= 0 && !task.predecessor.contains(tasks[X.order[start]])) {
             start--;
         }
-        while (end < n && !tasks[pos].successor.contains(tasks[X.order[end]])) {
+        while (end < n && !task.successor.contains(tasks[X.order[end]])) {
             end++;
         }
         int posN = random.nextInt(end - start - 1) + start + 1;
