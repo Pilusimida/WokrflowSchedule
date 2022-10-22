@@ -73,10 +73,12 @@ public class Main {
 
         print(chromosome);
         System.out.println(Agent.makespan(chromosome));
+        System.out.println(Agent.cost(chromosome));
         clear();
 
         print(chromosome1);
         System.out.println(Agent.makespan(chromosome1));
+        System.out.println(Agent.cost(chromosome1));
         clear();
 
         System.out.println("After crossover:");
@@ -85,10 +87,12 @@ public class Main {
 
         print(chromosome);
         System.out.println(Agent.makespan(chromosome));
+        System.out.println(Agent.cost(chromosome));
         clear();
 
         print(chromosome1);
         System.out.println(Agent.makespan(chromosome1));
+        System.out.println(Agent.cost(chromosome1));
         clear();
 
     }

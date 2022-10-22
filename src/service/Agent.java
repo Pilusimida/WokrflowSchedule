@@ -198,4 +198,11 @@ public class Agent {
 
     }
 
+    public static double cost(Chromosome chromosome){
+        double sum = 0;
+        for(int i : chromosome.ins2type){
+            sum += Types[i].p;
+        }
+        return sum;
+    }
 }
