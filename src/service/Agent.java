@@ -4,6 +4,7 @@ import entity.Chromosome;
 import entity.Task;
 import entity.TaskGraph;
 
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -14,7 +15,7 @@ public class Agent {
     public static int typeNumber;
     public static Random random = new Random();
     public static Task[] tasks;
-    public static int[] getTopologicalTaskArr(){
+    public static int[] getTopologicalTaskArrByConsole(){
         Scanner input=new Scanner(System.in);
         System.out.println("--------------------Topological Sorting--------------------");
         System.out.println("Please input the task quantity:");
@@ -28,6 +29,37 @@ public class Agent {
             System.out.println("Edge from " + str1 + " to " + str2 + " has been built.");
             graph.addEdge(Integer.parseInt(str1),Integer.parseInt(str2));
         }
+        return graph.TopologicalSorting();
+    }
+
+
+    /**
+     * description:
+     * @Format: File should contain total Num in the first line, and for each line has a "x y" means there is an edge from x -> y
+     * @Param: [path]
+     * @Return: int[]
+     */
+    public static int[] getTopologicalTaskArrByFile(String path){
+        System.out.println("--------------------Topological Sorting--------------------");
+        File file=new File(path);
+        if(!file.exists()){
+            System.out.println("File is not found!");
+            return null;
+        }
+        TaskGraph graph;
+        try {
+            BufferedReader reader=new BufferedReader(new FileReader(file));
+            int num=Integer.parseInt(reader.readLine());
+            graph=new TaskGraph(num,tasks);
+            String edges;
+            while ((edges = reader.readLine())!=null){
+                String[] e = edges.split(" ");
+                graph.addEdge(Integer.parseInt(e[0]),Integer.parseInt(e[1]));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("-------------------------Finished--------------------------");
         return graph.TopologicalSorting();
     }
 
