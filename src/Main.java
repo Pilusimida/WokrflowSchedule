@@ -14,10 +14,14 @@ public class Main {
         int task_number = input.nextInt();
         System.out.println("Please input the instances number: ");
         int instance_number = input.nextInt();
-        Task[] tasks = new Task[task_number + 2];
-        for (int i = 0; i <= task_number + 1; i++) {
+        Task[] tasks = new Task[task_number];
+        for (int i = 0; i < task_number; i++) {
             tasks[i] = new Task(i);
         }
+        TaskGraph graph=new TaskGraph(task_number,tasks);
+        int[] topologicalArr = graph.TopologicalSorting();
+
+
         Agent.tasks = tasks;
 
     }
