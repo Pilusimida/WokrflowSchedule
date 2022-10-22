@@ -49,6 +49,8 @@ public class Main {
         TaskGraph graph=new TaskGraph(task_number,tasks);
         graph.addEdge(1,3);
         graph.addEdge(2,3);
+        graph.addEdge(3,5);
+        graph.addEdge(0,5);
         int[] topologicalArr = graph.TopologicalSorting();
 
         int[] instance = new int[task_number];
@@ -65,35 +67,37 @@ public class Main {
         }
 
         Chromosome chromosome = new Chromosome(topologicalArr.clone(), instance, type);
-        Chromosome chromosome1 = new Chromosome(topologicalArr.clone(), instance2, type2);
+        print(chromosome);
         for (int i = 0; i < task_number; i++) {
-            Agent.mutateOrder(chromosome1, i);
 
+            Agent.mutateOrder(chromosome, i);
         }
-
         print(chromosome);
-        System.out.println(Agent.makespan(chromosome));
-        System.out.println(Agent.cost(chromosome));
-        clear();
 
-        print(chromosome1);
-        System.out.println(Agent.makespan(chromosome1));
-        System.out.println(Agent.cost(chromosome1));
-        clear();
 
-        System.out.println("After crossover:");
-        Agent.crossoverOrder(chromosome,chromosome1);
-        Agent.crossoverIns(chromosome, chromosome1);
-
-        print(chromosome);
-        System.out.println(Agent.makespan(chromosome));
-        System.out.println(Agent.cost(chromosome));
-        clear();
-
-        print(chromosome1);
-        System.out.println(Agent.makespan(chromosome1));
-        System.out.println(Agent.cost(chromosome1));
-        clear();
+//        print(chromosome);
+//        System.out.println(Agent.makespan(chromosome));
+//        System.out.println(Agent.cost(chromosome));
+//        clear();
+//
+//        print(chromosome1);
+//        System.out.println(Agent.makespan(chromosome1));
+//        System.out.println(Agent.cost(chromosome1));
+//        clear();
+//
+//        System.out.println("After crossover:");
+//        Agent.crossoverOrder(chromosome,chromosome1);
+//        Agent.crossoverIns(chromosome, chromosome1);
+//
+//        print(chromosome);
+//        System.out.println(Agent.makespan(chromosome));
+//        System.out.println(Agent.cost(chromosome));
+//        clear();
+//
+//        print(chromosome1);
+//        System.out.println(Agent.makespan(chromosome1));
+//        System.out.println(Agent.cost(chromosome1));
+//        clear();
 
     }
     public static void print(Chromosome chromosome){

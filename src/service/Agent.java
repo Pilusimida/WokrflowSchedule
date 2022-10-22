@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
 import utils.MakeSpanUtils;
 
 public class Agent {
@@ -19,19 +20,20 @@ public class Agent {
     public static Task[] tasks;
     public static Type[] Types;
     public static double[] availableTime;
-    public static int[] getTopologicalTaskArrByConsole(){
-        Scanner input=new Scanner(System.in);
+
+    public static int[] getTopologicalTaskArrByConsole() {
+        Scanner input = new Scanner(System.in);
         System.out.println("--------------------Topological Sorting--------------------");
         System.out.println("Please input the task quantity:");
-        TaskGraph graph=new TaskGraph(input.nextInt(), tasks);
+        TaskGraph graph = new TaskGraph(input.nextInt(), tasks);
         System.out.println("Please input the task priority (x to finish the input):");
         while (true) {
-            String str1=input.next();
-            if(str1.equals("x")) break;
-            String str2=input.next();
+            String str1 = input.next();
+            if (str1.equals("x")) break;
+            String str2 = input.next();
             input.nextLine();
             System.out.println("Edge from " + str1 + " to " + str2 + " has been built.");
-            graph.addEdge(Integer.parseInt(str1),Integer.parseInt(str2));
+            graph.addEdge(Integer.parseInt(str1), Integer.parseInt(str2));
         }
         return graph.TopologicalSorting();
     }
@@ -39,26 +41,27 @@ public class Agent {
 
     /**
      * description:
+     *
      * @Format: File should contain total Num in the first line, and for each line has a "x y" means there is an edge from x -> y
      * @Param: [path]
      * @Return: int[]
      */
-    public static int[] getTopologicalTaskArrByFile(String path){
+    public static int[] getTopologicalTaskArrByFile(String path) {
         System.out.println("--------------------Topological Sorting--------------------");
-        File file=new File(path);
-        if(!file.exists()){
+        File file = new File(path);
+        if (!file.exists()) {
             System.out.println("File is not found!");
             return null;
         }
         TaskGraph graph;
         try {
-            BufferedReader reader=new BufferedReader(new FileReader(file));
-            int num=Integer.parseInt(reader.readLine());
-            graph=new TaskGraph(num,tasks);
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            int num = Integer.parseInt(reader.readLine());
+            graph = new TaskGraph(num, tasks);
             String edges;
-            while ((edges = reader.readLine())!=null){
+            while ((edges = reader.readLine()) != null) {
                 String[] e = edges.split(" ");
-                graph.addEdge(Integer.parseInt(e[0]),Integer.parseInt(e[1]));
+                graph.addEdge(Integer.parseInt(e[0]), Integer.parseInt(e[1]));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -83,20 +86,20 @@ public class Agent {
             orderB[i] = A.order[i];
         }
         //这里我产生了一个问题，会不会在Chromosome里面把int[]改成List会更好
-        for(int num:A.order){
-            if(!isContains(orderA,0,p,num)) orderA[cursorA++]=num;
+        for (int num : A.order) {
+            if (!isContains(orderA, 0, p, num)) orderA[cursorA++] = num;
         }
 
-        for(int num:B.order){
-            if(!isContains(orderB,0,p,num)) orderB[cursorB++]=num;
+        for (int num : B.order) {
+            if (!isContains(orderB, 0, p, num)) orderB[cursorB++] = num;
         }
         A.order = orderA;
         B.order = orderB;
     }
 
-    public static boolean isContains(int[] arr,int start,int end,int num){
-        for(int i=start;i<=end;++i){
-            if(arr[i]==num) return true;
+    public static boolean isContains(int[] arr, int start, int end, int num) {
+        for (int i = start; i <= end; ++i) {
+            if (arr[i] == num) return true;
         }
         return false;
     }
@@ -119,22 +122,30 @@ public class Agent {
         // From my perspective the type according to a instance can't be easily changed or crossed over.
     }
 
-    public static void mutateOrder(Chromosome X, int pos) {
-        int n = X.order.length;
-        Task task = tasks[X.order[pos]];
+    public static Chromosome mutateOrder(Chromosome X, int pos) {
+        Chromosome nc = new Chromosome(X.order.clone(), X.task2ins.clone(), X.ins2type.clone());
+        int n = nc.order.length;
+        Task task = tasks[nc.order[pos]];
         int start = pos;
         int end = pos;
-        while (start >= 0 && !task.predecessor.contains(tasks[X.order[start]])) {
+        while (start >= 0 && !task.predecessor.contains(tasks[nc.order[start]])) {
             start--;
         }
-        while (end < n && !task.successor.contains(tasks[X.order[end]])) {
+        while (end < n && !task.successor.contains(tasks[nc.order[end]])) {
             end++;
         }
         int posN = random.nextInt(end - start - 1) + start + 1;
+
         int temp = X.order[pos];
-        X.order[pos] = X.order[posN];
-        X.order[posN] = temp;
+        if (posN < pos) {
+            if (pos - posN >= 0) System.arraycopy(nc.order, posN, nc.order, posN + 1, pos - posN);
+        } else if (pos < posN) {
+            if (posN - (pos + 1) >= 0) System.arraycopy(nc.order, pos + 1, nc.order, pos + 1 + 1, posN - (pos + 1));
+        }
+        nc.order[posN] = temp;
+        return nc;
     }
+
     // im not sure if the [mutate rate] of genes is correct or not
     public static void mutateIns(Chromosome X) {
         int number = X.task2ins.length;
@@ -166,31 +177,31 @@ public class Agent {
         B.ins2type[Instance] = TypeA;
         //mutate Pa with a small probability
         int r = random.nextInt(1000);
-        if(r == 1){
+        if (r == 1) {
             TypeA = random.nextInt(typeNumber);
         }
     }
 
-    public static double makespan(Chromosome chromosome){
+    public static double makespan(Chromosome chromosome) {
         Type[] types = new Type[tasks.length];
         for (int i = 0; i < types.length; i++) {
             types[i] = Types[chromosome.ins2type[chromosome.task2ins[i]]];
         }
         MakeSpanUtils.types = types;
         double exitTime = 0;
-        for(Task task:tasks){
+        for (Task task : tasks) {
             int insIndex = chromosome.task2ins[task.index];
             int typeIndex = chromosome.ins2type[chromosome.task2ins[task.index]];
-            if(task.predecessor.size() == 0){
+            if (task.predecessor.size() == 0) {
                 task.startTime = Math.max(0, availableTime[insIndex]);
                 task.finalTime = task.startTime + MakeSpanUtils.getCompTime(task.referTime, Types[typeIndex].cu);
                 availableTime[insIndex] = task.finalTime;
-            }else{
+            } else {
                 task.startTime = MakeSpanUtils.getStartTime(availableTime[insIndex], task, task.datasize, Types[typeIndex].bw);
                 task.finalTime = task.startTime + MakeSpanUtils.getCompTime(task.referTime, Types[typeIndex].cu);
                 availableTime[insIndex] = task.finalTime;
             }
-            if(task.successor.size() == 0){
+            if (task.successor.size() == 0) {
                 exitTime = Math.max(exitTime, task.finalTime);
             }
         }
@@ -198,9 +209,9 @@ public class Agent {
 
     }
 
-    public static double cost(Chromosome chromosome){
+    public static double cost(Chromosome chromosome) {
         double sum = 0;
-        for(int i : chromosome.ins2type){
+        for (int i : chromosome.ins2type) {
             sum += Types[i].p;
         }
         return sum;
