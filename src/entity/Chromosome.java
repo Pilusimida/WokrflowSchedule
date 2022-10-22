@@ -30,6 +30,14 @@ public class Chromosome implements MyCloneable{
 
     @Override
     public Chromosome cloneObject() {
+        Chromosome newc = new Chromosome();
+        int[] norder=order.clone();
+        int[] ntask2ins = task2ins.clone();
+        int[] nins2type = ins2type.clone();
+        List<Chromosome> better = better.;
+        List<Chromosome> worse = ;
+        double nmakwspan = makespan;
+        double ncost = cost;
 
     }
 }
