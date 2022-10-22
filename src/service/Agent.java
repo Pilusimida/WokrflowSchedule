@@ -119,6 +119,22 @@ public class Agent {
         // From my perspective the type according to a instance can't be easily changed or crossed over.
     }
 
+    public static int[] getRandomInstance(){
+        int[] instance = new int[insNumber];
+        for (int i = 0; i < insNumber; i++) {
+            instance[i] = random.nextInt(insNumber);
+        }
+        return instance;
+    }
+
+    public static int[] getRandomType(){
+        int[] type = new int[typeNumber];
+        for (int i = 0; i < typeNumber; i++) {
+            type[i] = random.nextInt(typeNumber);
+        }
+        return type;
+    }
+
     public static void mutateOrder(Chromosome X, int pos) {
         int n = X.order.length;
         Task task = tasks[X.order[pos]];
