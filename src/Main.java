@@ -42,7 +42,7 @@ public class Main {
         }
         Agent.tasks = tasks;
         Agent.Types = types;
-        availableTime=new double[instance_number];
+        availableTime = new double[instance_number];
         for (int i = 0; i < instance_number; i++) {
             availableTime[i] = 0;
         }
@@ -68,6 +68,7 @@ public class Main {
         Chromosome chromosome1 = new Chromosome(topologicalArr.clone(), instance2, type2);
         for (int i = 0; i < task_number; i++) {
             Agent.mutateOrder(chromosome1, i);
+
         }
 
         print(chromosome);
@@ -80,6 +81,7 @@ public class Main {
 
         System.out.println("After crossover:");
         Agent.crossoverOrder(chromosome,chromosome1);
+        Agent.crossoverIns(chromosome, chromosome1);
 
         print(chromosome);
         System.out.println(Agent.makespan(chromosome));
