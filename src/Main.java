@@ -12,6 +12,10 @@ import java.util.Scanner;
 
 public class Main {
     public static Type[] types = new Type[8];
+    public static Task[] tasks;
+    public static double[] availableTime;
+    public static int instance_number;
+    public static int task_number;
     public static void main(String[] args) {
         types[0] = new Type(0, 1.7f, 39321600, 0.06f);
         types[1] = new Type(1, 3.75f, 85196800, 0.12f);
@@ -24,12 +28,12 @@ public class Main {
         Random random = new Random();
         Scanner input = new Scanner(System.in);
         System.out.println("Please input the tasks number: ");
-        int task_number = input.nextInt();
+        task_number = input.nextInt();
         System.out.println("Please input the instances number: ");
-        int instance_number = input.nextInt();
+        instance_number = input.nextInt();
 
         int type_number = 8;
-        Task[] tasks = new Task[task_number];
+        tasks = new Task[task_number];
         for (int i = 0; i < task_number; i++) {
             tasks[i] = new Task(i);
             tasks[i].datasize = 3.43;
@@ -37,11 +41,11 @@ public class Main {
         }
         Agent.tasks = tasks;
         Agent.Types = types;
-        double[] avaibleTime = new double[instance_number];
+        availableTime = new double[instance_number];
         for (int i = 0; i < instance_number; i++) {
-            avaibleTime[i] = 0;
+            availableTime[i] = 0;
         }
-        Agent.availableTime = avaibleTime;
+        Agent.availableTime = availableTime;
         TaskGraph graph=new TaskGraph(task_number,tasks);
         graph.addEdge(1,3);
         graph.addEdge(2,3);
@@ -65,17 +69,25 @@ public class Main {
         for (int i = 0; i < task_number; i++) {
             Agent.mutateOrder(chromosome1, i);
         }
+
         print(chromosome);
         System.out.println(Agent.makespan(chromosome));
+        clear();
+
         print(chromosome1);
         System.out.println(Agent.makespan(chromosome1));
+        clear();
+
         System.out.println("After crossover:");
         Agent.crossoverOrder(chromosome,chromosome1);
+
         print(chromosome);
         System.out.println(Agent.makespan(chromosome));
+        clear();
+
         print(chromosome1);
         System.out.println(Agent.makespan(chromosome1));
-
+        clear();
 
     }
     public static void print(Chromosome chromosome){
@@ -90,5 +102,12 @@ public class Main {
         Arrays.stream(chromosome.ins2type).forEach(x->System.out.print(x+" "));
         System.out.println();
         System.out.println("-----------------------------");
+    }
+    public static void clear(){
+        availableTime = new double[instance_number];
+        for(Task task:tasks){
+            task.startTime = 0;
+            task.finalTime = 0;
+        }
     }
 }

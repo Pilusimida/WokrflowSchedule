@@ -4,7 +4,6 @@ import entity.Chromosome;
 import entity.Task;
 import entity.TaskGraph;
 import entity.Type;
-import javafx.scene.effect.Blend;
 
 import java.io.*;
 import java.util.Arrays;
@@ -184,11 +183,11 @@ public class Agent {
             int typeIndex = chromosome.ins2type[chromosome.task2ins[task.index]];
             if(task.predecessor.size() == 0){
                 task.startTime = Math.max(0, availableTime[insIndex]);
-                task.finalTime = task.startTime + MakeSpanUtils.getCompTime(task.referTime, types[typeIndex].cu);
+                task.finalTime = task.startTime + MakeSpanUtils.getCompTime(task.referTime, Types[typeIndex].cu);
                 availableTime[insIndex] = task.finalTime;
             }else{
-                task.startTime = MakeSpanUtils.getStartTime(availableTime[insIndex], task, task.datasize, types[typeIndex].bw);
-                task.finalTime = task.startTime + MakeSpanUtils.getCompTime(task.referTime, types[typeIndex].cu);
+                task.startTime = MakeSpanUtils.getStartTime(availableTime[insIndex], task, task.datasize, Types[typeIndex].bw);
+                task.finalTime = task.startTime + MakeSpanUtils.getCompTime(task.referTime, Types[typeIndex].cu);
                 availableTime[insIndex] = task.finalTime;
             }
             if(task.successor.size() == 0){
