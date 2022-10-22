@@ -3,11 +3,9 @@ import entity.Task;
 import entity.TaskGraph;
 import entity.Type;
 import service.Agent;
+import service.PopulationManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import static service.Agent.availableTime;
 
@@ -53,25 +51,30 @@ public class Main {
         graph.addEdge(0,5);
         int[] topologicalArr = graph.TopologicalSorting();
 
-        int[] instance = new int[task_number];
-        int[] instance2 = new int[task_number];
-        int[] type = new int[task_number];
-        int[] type2 = new int[task_number];
-        for (int i = 0; i < task_number; i++) {
-            instance[i] = random.nextInt(instance_number);
-            instance2[i] = random.nextInt(instance_number);
-        }
-        for (int i = 0; i < task_number; i++) {
-            type[i] = random.nextInt(type_number);
-            type2[i] = random.nextInt(type_number);
-        }
+        List<List<Chromosome>> start = PopulationManager.start(topologicalArr);
 
-        Chromosome chromosome = new Chromosome(topologicalArr.clone(), instance, type);
-        print(chromosome);
+        System.out.println();
 
 
-            Chromosome chromosome1 = Agent.mutateOrder(chromosome, 0);
-            print(chromosome1);
+//        int[] instance = new int[task_number];
+//        int[] instance2 = new int[task_number];
+//        int[] type = new int[task_number];
+//        int[] type2 = new int[task_number];
+//        for (int i = 0; i < task_number; i++) {
+//            instance[i] = random.nextInt(instance_number);
+//            instance2[i] = random.nextInt(instance_number);
+//        }
+//        for (int i = 0; i < task_number; i++) {
+//            type[i] = random.nextInt(type_number);
+//            type2[i] = random.nextInt(type_number);
+//        }
+//
+//        Chromosome chromosome = new Chromosome(topologicalArr.clone(), instance, type);
+//        print(chromosome);
+//
+//
+//        Chromosome chromosome1 = Agent.mutateOrder(chromosome, 0);
+//        print(chromosome1);
 
 
 

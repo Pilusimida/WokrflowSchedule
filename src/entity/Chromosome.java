@@ -9,7 +9,7 @@ import java.util.List;
  * 2. Ind:
  * 3. Type:
  */
-public class Chromosome implements Cloneable{
+public class Chromosome implements MyCloneable{
     public int[] order;
     public int[] task2ins;
     public int[] ins2type;
@@ -29,7 +29,7 @@ public class Chromosome implements Cloneable{
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public Chromosome cloneObject() {
+
     }
 }

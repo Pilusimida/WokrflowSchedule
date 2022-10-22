@@ -135,10 +135,9 @@ public class Agent {
             end++;
         }
         int posN = random.nextInt(end - start - 1) + start + 1;
-
         int temp = nc.order[pos];
         if (posN < pos) {
-            for (int i = pos; i >= posN; i--) {
+            for (int i = pos; i > posN; i--) {
                 nc.order[i] = nc.order[i-1];
             }
         } else if (pos < posN) {

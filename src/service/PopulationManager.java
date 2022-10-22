@@ -21,18 +21,17 @@ public class PopulationManager {
 
     }
 
-    public static void initialPopulation(){
-        int[] taskOrder = Agent.getTopologicalTaskArrByFile("");
+    public static void initialPopulation(int[] task){
         int[] instance = Agent.getRandomIns();
         int[] type = Agent.getRandomType();
         Random random=new Random();
         Chromosome chromosome=new Chromosome();
         chromosome.task2ins = instance;
         chromosome.ins2type = type;
-        chromosome.order = taskOrder;
+        chromosome.order = task;
         bank.add(chromosome);
         for(int i=0;i<quantity-1;++i){
-            chromosome = Agent.mutateOrder(chromosome,random.nextInt());
+            chromosome = Agent.mutateOrder(chromosome,random.nextInt(task.length));
             instance = Agent.getRandomIns();
             type = Agent.getRandomType();
             chromosome.task2ins = instance;
@@ -60,6 +59,13 @@ public class PopulationManager {
             }
         }
         bank.addAll(newBank);
+    }
+
+    public static List<Chromosome> cloneList(List<Chromosome> list){
+        List<Chromosome> ans=new ArrayList<>();
+        for(Chromosome chromosome:list){
+            ans.add()
+        }
     }
 
     public static void sort(){
@@ -112,8 +118,8 @@ public class PopulationManager {
         bank = newList;
     }
 
-    public static List<List<Chromosome>> start(){
-        initialPopulation();
+    public static List<List<Chromosome>> start(int[] task){
+        initialPopulation(task);
         for(int i=0;i<generation;++i) {
             reproduce();
             sort();
