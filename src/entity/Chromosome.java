@@ -49,9 +49,13 @@ public class Chromosome implements MyCloneable{
         int[] norder=order.clone();
         int[] ntask2ins = task2ins.clone();
         int[] nins2type = ins2type.clone();
+        newc.better=better;
+        newc.worse=worse;
         newc.order=norder;
         newc.task2ins=ntask2ins;
         newc.ins2type=nins2type;
+        newc.makespan=makespan;
+        newc.cost=cost;
 
         return newc;
     }

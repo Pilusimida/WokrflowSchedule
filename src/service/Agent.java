@@ -87,13 +87,19 @@ public class Agent {
         }
         //这里我产生了一个问题，会不会在Chromosome里面把int[]改成List会更好
         for (int num : A.order) {
-            if (!isContains(orderA, 0, p, num)) {
+            if (!isContains(A.order, 0, p, num)) {
+                if(cursorA==6){
+                    System.out.println();
+                }
                 orderA[cursorA++] = num;
             }
         }
 
         for (int num : B.order) {
-            if (!isContains(orderB, 0, p, num)) orderB[cursorB++] = num;
+            if(cursorA==6){
+                System.out.println();
+            }
+            if (!isContains(B.order, 0, p, num)) orderB[cursorB++] = num;
         }
         A.order = orderA;
         B.order = orderB;

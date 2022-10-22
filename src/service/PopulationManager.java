@@ -3,6 +3,7 @@ package service;
 import entity.Chromosome;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class PopulationManager {
 
@@ -87,7 +88,8 @@ public class PopulationManager {
                 }
             }
         }
-        List<Chromosome> newBank=cloneList(bank);
+        List<Chromosome> newBankTemp=cloneList(bank);
+        CopyOnWriteArrayList<Chromosome> newBank=new CopyOnWriteArrayList<>(newBankTemp);
         int r = 0;
         while (!newBank.isEmpty()) {
             rank.add(new LinkedList<>());
@@ -126,8 +128,10 @@ public class PopulationManager {
         initialPopulation(task);
         for(int i=0;i<generation;++i) {
             reproduce();
+            evaluate();
             sort();
             eliminate();
+            System.out.println(i);
         }
         return rank;
     }
