@@ -96,6 +96,32 @@ public class PopulationManager {
         }
     }
 
+    public static void eliminate(){
+        List<Chromosome> newList = new ArrayList<>();
+        int num=0;
+        for(List<Chromosome> list:rank){
+            if(list.size()+newList.size()<=quantity){
+                newList.addAll(list);
+            }else {
+                num = quantity - (list.size()+newList.size());
+                for(int i=0;i<num;++i){
+                    newList.add(list.get(i));
+                }
+            }
+        }
+        bank = newList;
+    }
+
+    public static List<List<Chromosome>> start(){
+        initialPopulation();
+        for(int i=0;i<generation;++i) {
+            reproduce();
+            sort();
+            eliminate();
+        }
+        return rank;
+    }
+
     public static boolean isMutate(){
         Random random=new Random();
         int standard = random.nextInt(10000);
