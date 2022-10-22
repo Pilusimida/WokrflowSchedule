@@ -76,8 +76,8 @@ public class Agent {
         //random is a random number generator
         //p is the cut position
         int p = random.nextInt(n);
-        int cursorA = p;
-        int cursorB = p;
+        int cursorA = p+1;
+        int cursorB = p+1;
         int[] orderA = new int[n];
         int[] orderB = new int[n];
         //
@@ -87,19 +87,17 @@ public class Agent {
         }
         //这里我产生了一个问题，会不会在Chromosome里面把int[]改成List会更好
         for (int num : A.order) {
-            if (!isContains(A.order, 0, p, num)) {
-                if(cursorA==6){
-                    System.out.println();
-                }
-                orderA[cursorA++] = num;
+            if (!isContains(orderA, 0, p, num)) {
+                orderA[cursorA] = num;
+                cursorA++;
             }
         }
 
         for (int num : B.order) {
-            if(cursorA==6){
-                System.out.println();
+            if (!isContains(orderB, 0, p, num)) {
+                orderB[cursorB] = num;
+                cursorB++;
             }
-            if (!isContains(B.order, 0, p, num)) orderB[cursorB++] = num;
         }
         A.order = orderA;
         B.order = orderB;
@@ -210,6 +208,7 @@ public class Agent {
     }
 
     public static double makespan(Chromosome chromosome) {
+        Agent.availableTime = new double[insNumber];
         Type[] types = new Type[tasks.length];
         for (int i = 0; i < types.length; i++) {
             types[i] = Types[chromosome.ins2type[chromosome.task2ins[i]]];

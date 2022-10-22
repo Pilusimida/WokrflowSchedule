@@ -22,6 +22,10 @@ public class PopulationManager {
 
     }
 
+    /**
+     * 初始化种群
+     * @param task
+     */
     public static void initialPopulation(int[] task){
         int[] instance = Agent.getRandomIns();
         if(instance.length==0){
@@ -74,9 +78,9 @@ public class PopulationManager {
     }
 
     public static void sort(){
-        for(int i=0;i<bank.size();++i){
+        for(int i=0;i<bank.size();i++){
             Chromosome chromosome=bank.get(i);
-            for(int j=i+1;j<bank.size();++j){
+            for(int j=i+1;j<bank.size();j++){
                 Chromosome temp=bank.get(j);
                 if(chromosome.makespan<temp.makespan&&chromosome.cost<temp.cost){
                     chromosome.worse.add(temp);
@@ -128,8 +132,13 @@ public class PopulationManager {
         initialPopulation(task);
         for(int i=0;i<generation;++i) {
             reproduce();
+            System.out.println("Generation i: ");
             evaluate();
+            for (Chromosome s : bank) {
+                System.out.println(s.cost + ";" + s.makespan);
+            }
             sort();
+            System.out.println("Sorting finished.");
             eliminate();
             System.out.println(i);
         }

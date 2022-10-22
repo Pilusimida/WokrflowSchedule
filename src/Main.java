@@ -28,9 +28,11 @@ public class Main {
         Random random = new Random();
         Scanner input = new Scanner(System.in);
         System.out.println("Please input the tasks number: ");
-        task_number = input.nextInt();
+        task_number = 6;
+//        task_number = input.nextInt();
         System.out.println("Please input the instances number: ");
-        instance_number = input.nextInt();
+        instance_number = 6;
+//        instance_number = input.nextInt();
 
         Agent.insNumber=instance_number;
         Agent.typeNumber= 8;
