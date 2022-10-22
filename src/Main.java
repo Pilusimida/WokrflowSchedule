@@ -23,6 +23,7 @@ public class Main {
         for (int i = 0; i < task_number; i++) {
             tasks[i] = new Task(i);
         }
+        Agent.tasks = tasks;
         TaskGraph graph=new TaskGraph(task_number,tasks);
         int[] topologicalArr = graph.TopologicalSorting();
         int[] instance = new int[task_number];
