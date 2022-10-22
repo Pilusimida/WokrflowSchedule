@@ -68,11 +68,12 @@ public class Main {
 
         Chromosome chromosome = new Chromosome(topologicalArr.clone(), instance, type);
         print(chromosome);
-        for (int i = 0; i < task_number; i++) {
 
-            Agent.mutateOrder(chromosome, i);
-        }
-        print(chromosome);
+
+            Chromosome chromosome1 = Agent.mutateOrder(chromosome, 0);
+            print(chromosome1);
+
+
 
 
 //        print(chromosome);

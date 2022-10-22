@@ -136,11 +136,15 @@ public class Agent {
         }
         int posN = random.nextInt(end - start - 1) + start + 1;
 
-        int temp = X.order[pos];
+        int temp = nc.order[pos];
         if (posN < pos) {
-            if (pos - posN >= 0) System.arraycopy(nc.order, posN, nc.order, posN + 1, pos - posN);
+            for (int i = pos; i >= posN; i--) {
+                nc.order[i] = nc.order[i-1];
+            }
         } else if (pos < posN) {
-            if (posN - (pos + 1) >= 0) System.arraycopy(nc.order, pos + 1, nc.order, pos + 1 + 1, posN - (pos + 1));
+            for (int i = pos ; i < posN; i++) {
+                nc.order[i] = nc.order[i+1];
+            }
         }
         nc.order[posN] = temp;
         return nc;
