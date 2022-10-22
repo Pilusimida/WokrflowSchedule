@@ -16,10 +16,10 @@ public class MakeSpanUtils {
         return dataSize/brandWidth;
     }
 
-    public static double getStartTime(double availableTime, Task task, double dataSize, double brandWidth, Chromosome chromosome){
+    public static double getStartTime(double availableTime, Task task, double dataSize, double brandWidth){
         double max = 0;
         for(Task temp:task.predecessor){
-            double bw = Math.min(brandWidth,types[task.index].bw);
+            double bw = Math.min(brandWidth,types[temp.index].bw);
             double commTime = getCommTime(dataSize,bw);
             max = Math.max(max,commTime+temp.finalTime);
         }
