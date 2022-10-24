@@ -2,8 +2,8 @@ package entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * This class is entity.Chromosome in EMO, which has 3 Strings:\n
@@ -16,8 +16,8 @@ public class Chromosome implements MyCloneable{
     public int[] task2ins;
     public int[] ins2type;
 
-    public List<Chromosome> better = new LinkedList<>();
-    public List<Chromosome> worse = new LinkedList<>();
+    public List<Chromosome> better;
+    public List<Chromosome> worse;
 
     public double makespan;
     public double cost;
@@ -25,9 +25,12 @@ public class Chromosome implements MyCloneable{
         this.order = Order;
         this.task2ins = Ins;
         this.ins2type = Type;
+        better=new ArrayList<>();
+        worse=new ArrayList<>();
     }
     public Chromosome(){
-
+        better=new ArrayList<>();
+        worse=new ArrayList<>();
     }
 
     @Override
@@ -44,18 +47,28 @@ public class Chromosome implements MyCloneable{
 
 
     @Override
-    public Chromosome cloneObject() {
+    public Chromosome cloneObject(int k) {
         Chromosome newc = new Chromosome();
         int[] norder=order.clone();
         int[] ntask2ins = task2ins.clone();
         int[] nins2type = ins2type.clone();
-        newc.better=better;
-        newc.worse=worse;
+        newc.better=new ArrayList<>();
+
         newc.order=norder;
         newc.task2ins=ntask2ins;
         newc.ins2type=nins2type;
         newc.makespan=makespan;
         newc.cost=cost;
+
+        if(k>2) return newc;
+        k++;
+        for(Chromosome chromosome:better){
+            newc.better.add(chromosome.cloneObject(k));
+        }
+        newc.worse=new ArrayList<>();
+        for(Chromosome chromosome:worse){
+            newc.worse.add(chromosome.cloneObject(k));
+        }
 
         return newc;
     }

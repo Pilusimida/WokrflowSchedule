@@ -1,3 +1,5 @@
+package start;
+
 import entity.Chromosome;
 import entity.Task;
 import entity.TaskGraph;
@@ -54,6 +56,15 @@ public class Main {
         int[] topologicalArr = graph.TopologicalSorting();
 
         List<List<Chromosome>> start = PopulationManager.start(topologicalArr);
+
+        int rank=0;
+        for(List<Chromosome> list:start){
+            System.out.println("----------rank"+(rank++)+"----------");
+            for(Chromosome chromosome:list){
+                System.out.println("makespan: "+chromosome.makespan+"; cost:" +chromosome.cost);
+            }
+        }
+
 
         System.out.println();
 

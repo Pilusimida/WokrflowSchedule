@@ -1,5 +1,5 @@
 package entity;
 
 public interface MyCloneable {
-    Chromosome cloneObject();
+    Chromosome cloneObject(int k);
 }
