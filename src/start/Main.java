@@ -6,6 +6,7 @@ import entity.TaskGraph;
 import entity.Type;
 import service.Agent;
 import service.PopulationManager;
+import utils.PaintUtils;
 
 import java.util.*;
 
@@ -59,16 +60,18 @@ public class Main {
 
         List<List<Chromosome>> start = PopulationManager.start(topologicalArr);
 
-        int rank=0;
-        for(List<Chromosome> list:start){
-            System.out.println("----------rank"+(rank++)+"----------");
-            for(Chromosome chromosome:list){
-                System.out.println("makespan: "+chromosome.makespan+"; cost:" +chromosome.cost);
-            }
-        }
+//        int rank=0;
+//        for(List<Chromosome> list:start){
+//            System.out.println("----------rank"+(rank++)+"----------");
+//            for(Chromosome chromosome:list){
+//                System.out.println("makespan: "+chromosome.makespan+"; cost:" +chromosome.cost);
+//            }
+//        }
+
+        PaintUtils.paintDiagram(start);
 
 
-        System.out.println();
+//        System.out.println();
 
 
 //        int[] instance = new int[task_number];
